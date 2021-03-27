@@ -19,3 +19,39 @@ Change libx264 to h264_videotoolbox
 ```
 Change libx264 to h264_qsv
 ```
+
+<h1>My FFMPEG Presets</h1>
+
+<h3>Local Preset (3 Source)</h3>
+
+```
+ffmpeg -rtsp_transport tcp \
+-i "rtsp://192.168.100.20" \
+-i "rtsp://192.168.100.30" \
+-i "rtsp://192.168.100.40" \
+-filter_complex " \
+[0:v] setpts=PTS-STARTPTS, scale=800x448,setsar=1[first]; \
+[1:v] setpts=PTS-STARTPTS, scale=800x448,setsar=1[second]; \
+[2:v] setpts=PTS-STARTPTS, scale=800x448,setsar=1[third]; \
+[first][second][third]hstack=inputs=3[v]" \
+-map "[v]" test.mp4
+```
+
+<h3>Local Preset (4 Source)</h3>
+
+```
+ffmpeg -rtsp_transport tcp \
+-i "rtsp://192.168.100.20" \
+-i "rtsp://192.168.100.30" \
+-i "rtsp://192.168.100.40" \
+-i "rtsp://192.168.100.50" \
+-filter_complex " \
+[0:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[upperleft]; \
+[1:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[upperright]; \
+[2:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[bottomleft]; \
+[3:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[bottomright]; \
+[upperleft][upperright]hstack[topbase]; \
+[bottomleft][bottomright]hstack[bottombase]; \
+[topbase][bottombase]vstack[base]" \
+-map [base] -map 4 test.mp4
+```
