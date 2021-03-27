@@ -55,3 +55,22 @@ ffmpeg -rtsp_transport tcp \
 [topbase][bottombase]vstack[base]" \
 -map [base] -map 4 test.mp4
 ```
+
+<h3>Youtube Streaming Preset (3 Source)</h3>
+
+```
+ffmpeg \
+-rtsp_transport udp \
+-i "rtsp://192.168.100.20" \
+-i "rtsp://192.168.100.30" \
+-i "rtsp://192.168.100.40" \
+-f lavfi -i anullsrc \
+-filter_complex " \
+[0:v] setpts=PTS-STARTPTS, scale=1280x720,setsar=1[first]; \
+[1:v] setpts=PTS-STARTPTS, scale=1280x720,setsar=1[second]; \
+[2:v] setpts=PTS-STARTPTS, scale=1280x720,setsar=1[third]; \
+[first][second][third]hstack=inputs=3[v]" \
+-map [v] -map 3 \
+-preset veryfast -force_key_frames "expr:gte(t,n_forced*2)" -max_delay 10000000 -vcodec libx264 -b:v 2500k -pix_fmt yuv420p \
+-f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
+```
