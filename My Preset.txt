@@ -1,1 +1,17 @@
 ffmpeg -f lavfi -i anullsrc -rtsp_transport udp -i "rtsp://192.168.100.25" -force_key_frames "expr:gte(t,n_forced*2)" -vf scale=854:480 -reorder_queue_size 4000 -max_delay 10000000 -c:v libx264 -preset ultrafast -b:v 1000k -pix_fmt yuv420p -f flv rtmp://a.rtmp.youtube.com/live2/xxxxxxx
+
+
+
+
+==== Local preset ====
+ffmpeg \
+-rtsp_transport tcp -i "rtsp://192.168.100.20" \
+-rtsp_transport tcp -i "rtsp://192.168.100.30" \
+-rtsp_transport tcp -i "rtsp://192.168.100.40" \
+-f lavfi -i color=black \
+-filter_complex \
+"[0:v]scale=480:-1[v0];[1:v]scale=480:-1[v1];[2:v]scale=480:-1[v2];[3:v]scale=480:-1[v3];[v0][v1]hstack[t];[v2][v3]hstack[b];[t][b]vstack" \
+-c:v \
+libx264 \
+combo.avi
+==== Local preset ====
