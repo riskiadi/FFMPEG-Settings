@@ -74,3 +74,20 @@ ffmpeg \
 -preset veryfast -vcodec libx264 -b:v 3000k -pix_fmt yuv420p \
 -f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
 ```
+
+<h3>Youtube Streaming Preset (3 Source) v.2</h3>
+
+ffmpeg \
+-rtsp_transport udp \
+-i "rtsp://192.168.100.20/live/ch00_1" \
+-i "rtsp://192.168.100.30/live/ch00_1" \
+-i "rtsp://192.168.100.40/live/ch00_1" \
+-f lavfi -i anullsrc \
+-filter_complex " \
+[0:v] setpts=PTS-STARTPTS, scale=iw:ih,setsar=1:1[first]; \
+[1:v] setpts=PTS-STARTPTS, scale=iw:ih,setsar=1:1[second]; \
+[2:v] setpts=PTS-STARTPTS, scale=iw:ih,setsar=1:1[third]; \
+[first][second][third]hstack=inputs=3[v]" \
+-map [v] -map 3 \
+-preset veryfast -vcodec libx264 -threads 6 -qscale 3 -b:v 1000k -pix_fmt yuv420p \
+-f flv rtmp://a.rtmp.youtube.com/live2/rjqk-ty49-wsmh-02u2-908d
