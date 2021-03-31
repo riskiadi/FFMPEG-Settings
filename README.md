@@ -79,6 +79,7 @@ ffmpeg \
 
 ```
 ffmpeg \
+ffmpeg \
 -rtsp_transport udp \
 -i "rtsp://192.168.100.20/live/ch00_1" \
 -i "rtsp://192.168.100.30/live/ch00_1" \
@@ -90,6 +91,6 @@ ffmpeg \
 [2:v] setpts=PTS-STARTPTS, scale=iw:ih,setsar=1:1[third]; \
 [first][second][third]hstack=inputs=3[v]" \
 -map [v] -map 3 \
--preset veryfast -vcodec libx264 -threads 6 -qscale 3 -b:v 1000k -pix_fmt yuv420p \
+-preset veryfast -vcodec libx264 -force_key_frames "expr:gte(t,n_forced*2)" -threads 6 -qscale 3 -b:v 4000k -pix_fmt yuv420p \
 -f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
 ```
