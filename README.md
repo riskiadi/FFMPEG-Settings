@@ -77,6 +77,7 @@ ffmpeg \
 
 <h3>Youtube Streaming Preset (3 Source) v.2</h3>
 
+```
 ffmpeg \
 -rtsp_transport udp \
 -i "rtsp://192.168.100.20/live/ch00_1" \
@@ -90,4 +91,5 @@ ffmpeg \
 [first][second][third]hstack=inputs=3[v]" \
 -map [v] -map 3 \
 -preset veryfast -vcodec libx264 -threads 6 -qscale 3 -b:v 1000k -pix_fmt yuv420p \
--f flv rtmp://a.rtmp.youtube.com/live2/rjqk-ty49-wsmh-02u2-908d
+-f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
+```
