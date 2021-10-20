@@ -28,8 +28,6 @@ Change libx264 to h264_qsv
 ffmpeg -rtsp_transport tcp -y -i "rtsp://192.168.100.60/live/ch00_1" -vframes 1 cctv.jpg
 ```
 
-<h3>Local Preset (4 Source)</h3>
-
 <h3>Local Preset (3 Source)</h3>
 
 ```
