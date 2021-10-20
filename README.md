@@ -22,13 +22,21 @@ Change libx264 to h264_qsv
 
 <h1>My FFMPEG Presets</h1>
 
+<h3>Screenshot Preset</h3>
+
+```
+ffmpeg -rtsp_transport tcp -y -i "rtsp://192.168.100.60/live/ch00_1" -vframes 1 cctv.jpg
+```
+
+<h3>Local Preset (4 Source)</h3>
+
 <h3>Local Preset (3 Source)</h3>
 
 ```
 ffmpeg -rtsp_transport tcp \
--i "rtsp://192.168.100.20/live/ch00_1" \
--i "rtsp://192.168.100.30/live/ch00_1" \
--i "rtsp://192.168.100.40/live/ch00_1" \
+-i "rtsp://192.168.100.50/live/ch00_1" \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-i "rtsp://192.168.100.70/live/ch00_1" \
 -filter_complex " \
 [0:v] setpts=PTS-STARTPTS, scale=800x448,setsar=1[first]; \
 [1:v] setpts=PTS-STARTPTS, scale=800x448,setsar=1[second]; \
@@ -41,10 +49,10 @@ ffmpeg -rtsp_transport tcp \
 
 ```
 ffmpeg -rtsp_transport tcp \
--i "rtsp://192.168.100.20/live/ch00_1" \
--i "rtsp://192.168.100.30/live/ch00_1" \
--i "rtsp://192.168.100.40/live/ch00_1" \
 -i "rtsp://192.168.100.50/live/ch00_1" \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-i "rtsp://192.168.100.70/live/ch00_1" \
+-i "rtsp://192.168.100.80/live/ch00_1" \
 -filter_complex " \
 [0:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[upperleft]; \
 [1:v] setpts=PTS-STARTPTS, scale=854:480,setsar=1[upperright]; \
@@ -61,9 +69,9 @@ ffmpeg -rtsp_transport tcp \
 ```
 ffmpeg \
 -rtsp_transport udp \
--i "rtsp://192.168.100.20/live/ch00_1" \
--i "rtsp://192.168.100.30/live/ch00_1" \
--i "rtsp://192.168.100.40/live/ch00_1" \
+-i "rtsp://192.168.100.50/live/ch00_1" \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-i "rtsp://192.168.100.70/live/ch00_1" \
 -f lavfi -i anullsrc \
 -filter_complex " \
 [0:v] setpts=PTS-STARTPTS, scale=1280x720,setsar=1[first]; \
@@ -81,9 +89,9 @@ ffmpeg \
 ffmpeg \
 ffmpeg \
 -rtsp_transport udp \
--i "rtsp://192.168.100.20/live/ch00_1" \
--i "rtsp://192.168.100.30/live/ch00_1" \
--i "rtsp://192.168.100.40/live/ch00_1" \
+-i "rtsp://192.168.100.50/live/ch00_1" \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-i "rtsp://192.168.100.70/live/ch00_1" \
 -f lavfi -i anullsrc \
 -filter_complex " \
 [0:v] setpts=PTS-STARTPTS, scale=iw:ih,setsar=1:1[first]; \
