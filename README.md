@@ -64,6 +64,24 @@ ffmpeg -rtsp_transport tcp \
 -map [base] -map 4 test.mp4
 ```
 
+<h3>Youtube Streaming Preset (1 Source)</h3>
+
+```
+ffmpeg \
+-rtsp_transport udp \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-f lavfi -i anullsrc \
+-preset veryfast \
+-vcodec libx264 \
+-force_key_frames "expr:gte(t,n_forced*2)" \
+-threads 6 \
+-qscale 3 \
+-b:v 4000k \
+-pix_fmt yuv420p \
+-f flv \
+rtmp://a.rtmp.youtube.com/live2/XXX-XXX-XXX
+```
+
 <h3>Youtube Streaming Preset (3 Source)</h3>
 
 ```
@@ -86,7 +104,6 @@ ffmpeg \
 <h3>Youtube Streaming Preset (3 Source) v.2</h3>
 
 ```
-ffmpeg \
 ffmpeg \
 -rtsp_transport udp \
 -i "rtsp://192.168.100.50/live/ch00_1" \
