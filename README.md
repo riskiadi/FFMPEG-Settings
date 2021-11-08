@@ -66,7 +66,7 @@ ffmpeg -rtsp_transport tcp \
 
 ```
 ffmpeg \
--rtsp_transport udp \
+-rtsp_transport tcp \
 -i "rtsp://192.168.100.60/live/ch00_1" \
 -f lavfi -i anullsrc \
 -preset veryfast \
@@ -84,7 +84,7 @@ rtmp://a.rtmp.youtube.com/live2/XXX-XXX-XXX
 
 ```
 ffmpeg \
--rtsp_transport udp \
+-rtsp_transport tcp \
 -i "rtsp://192.168.100.50/live/ch00_1" \
 -i "rtsp://192.168.100.60/live/ch00_1" \
 -i "rtsp://192.168.100.70/live/ch00_1" \
@@ -103,7 +103,7 @@ ffmpeg \
 
 ```
 ffmpeg \
--rtsp_transport udp \
+-rtsp_transport tcp \
 -i "rtsp://192.168.100.50/live/ch00_1" \
 -i "rtsp://192.168.100.60/live/ch00_1" \
 -i "rtsp://192.168.100.70/live/ch00_1" \
