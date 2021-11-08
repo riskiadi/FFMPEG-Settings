@@ -117,3 +117,18 @@ ffmpeg \
 -preset veryfast -vcodec libx264 -force_key_frames "expr:gte(t,n_forced*2)" -threads 6 -qscale 3 -b:v 4000k -pix_fmt yuv420p \
 -f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
 ```
+
+
+
+<h3>Youtube EMERGENCY Streaming Preset Single Source</h3>
+
+```
+ffmpeg \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.70/live/ch00_1" \
+-f lavfi -i anullsrc \
+-preset veryfast -vcodec libx264 -force_key_frames "expr:gte(t,n_forced*2)" -threads 6 -qscale 3 -b:v 4000k -pix_fmt yuv420p \
+-f flv rtmp://a.rtmp.youtube.com/live2/XXXX.XXXX.XXXX.XXXX.XXXX
+```
+
+
