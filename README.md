@@ -135,6 +135,25 @@ ffmpeg \
 -f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
 ```
 
+<h3>Youtube Streaming Preset (2 Source) v.3</h3>
+
+```
+ffmpeg \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.70/live/ch00_1" \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-f lavfi -i anullsrc \
+-filter_complex " \
+nullsrc=size=854x480, drawbox=x=0:w=854:h=480:t=fill:c=black[base]; \
+[0:v] setpts=PTS-STARTPTS, scale=427x240[upperleft]; \
+[1:v] setpts=PTS-STARTPTS, scale=427x240[upperright]; \
+[base][upperleft] overlay=shortest=1:x=0:y=125[tmp1]; \
+[tmp1][upperright] overlay=shortest=1:x=427:y=125" \
+-preset veryfast -vcodec libx264 -threads 6 -b:v 4000k -pix_fmt yuv420p \
+-f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
+```
+
 <h3>Youtube Streaming Preset (4 Source) v.3</h3>
 
 ```
