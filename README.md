@@ -157,7 +157,7 @@ ffmpeg \
 -i "rtsp://192.168.100.60/live/ch00_1" \
 -f lavfi -i anullsrc \
 -filter_complex " \
-nullsrc=size=854x480, drawbox=x=0:w=854:h=480:t=fill:c=black[base]; \
+nullsrc=size=854x480, drawbox=x=0:w=854:h=480:t=fill:c=black, drawtext=text='%{localtime}':fontsize=20:fontcolor=white:x=(w-text_w)/2:y=15[base]; \
 [0:v] setpts=PTS-STARTPTS, scale=427x240[upperleft]; \
 [1:v] setpts=PTS-STARTPTS, scale=427x240[upperright]; \
 [base][upperleft] overlay=shortest=1:x=0:y=125[tmp1]; \
@@ -178,7 +178,7 @@ ffmpeg \
 -i "rtsp://192.168.100.50/live/ch00_1" \
 -f lavfi -i anullsrc \
 -filter_complex " \
-nullsrc=size=1280x720[base]; \
+nullsrc=size=1280x720, drawbox=x=0:w=1280:h=720:t=fill:c=black, drawtext=text='%{localtime}':fontsize=20:fontcolor=white:x=(w-text_w)/2:y=15[base]; \
 [0:v] setpts=PTS-STARTPTS, scale=640x360[upperleft]; \
 [1:v] setpts=PTS-STARTPTS, scale=640x360[upperright]; \
 [2:v] setpts=PTS-STARTPTS, scale=640x360[lowerleft]; \
