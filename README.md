@@ -135,7 +135,28 @@ ffmpeg \
 -f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
 ```
 
+<h3>Youtube Streaming Preset (4 Source) v.3</h3>
 
+```
+ffmpeg \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.70/live/ch00_1" \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.60/live/ch00_1" \
+-rtsp_transport tcp \
+-i "rtsp://192.168.100.50/live/ch00_1" \
+-f lavfi -i anullsrc \
+-filter_complex " \
+nullsrc=size=1280x720[base]; \
+[0:v] setpts=PTS-STARTPTS, scale=640x360[upperleft]; \
+[1:v] setpts=PTS-STARTPTS, scale=640x360[upperright]; \
+[2:v] setpts=PTS-STARTPTS, scale=640x360[lowerleft]; \
+[base][upperleft] overlay=shortest=1:x=0:y=0[tmp1]; \
+[tmp1][upperright] overlay=shortest=1:x=640:y=0[tmp2]; \
+[tmp2][lowerleft] overlay=shortest=1:x=0:y=360" \
+-preset veryfast -vcodec libx264 -threads 6 -qscale 3 -b:v 4000k -pix_fmt yuv420p \
+-f flv rtmp://a.rtmp.youtube.com/live2/XXX.XXX.XXX \
+```
 
 <h3>Youtube EMERGENCY Streaming Preset Single Source</h3>
 
