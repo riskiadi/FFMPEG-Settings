@@ -20,6 +20,27 @@ Change libx264 to h264_videotoolbox
 Change libx264 to h264_qsv
 ```
 
+<h3>FFMPEG Error Log</h3>
+
+```
+
+crccheck: verify embedded CRCs
+
+bitstream: detect bitstream specification deviations
+
+buffer: detect improper bitstream length
+
+explode: abort decoding on minor error detection
+
+ignore_err: ignore decoding errors, and continue decoding. This is useful if you want to analyze the content of a video and thus want everything to be decoded no matter what. This option will not result in a video that is pleasing to watch in case of errors.
+
+careful: consider things that violate the spec and have not been seen in the wild as errors
+
+compliant: consider all spec non compliancies as errors
+
+aggressive: consider things that a sane encoder should not do as an error
+```
+
 <h3>Setting Positions</h3>
 
 
