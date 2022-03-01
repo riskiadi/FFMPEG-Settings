@@ -23,7 +23,7 @@ Change libx264 to h264_qsv
 <h3>FFMPEG Error Log</h3>
 
 ```
-crccheck: verify embedded CRCs
+crccheck : verify embedded CRCs
 
 bitstream: detect bitstream specification deviations
 
